@@ -11,8 +11,7 @@
 # -Wall                           = Enable all warnings
 # -Wno-switch                     = Execpt Warnings for missing switch cases
 # -fdiagnostics-show-option       = Show Warning IDs
-# -g                              = Generate debug information
-set(GNU_OR_CLANG_COMPILER_FLAGS          "-fomit-frame-pointer -fno-strict-aliasing -fsigned-char -pipe -Wall -Wno-switch -Wno-deprecated-declarations -g -Wno-missing-braces -fdiagnostics-show-option")
+set(GNU_OR_CLANG_COMPILER_FLAGS          "-fomit-frame-pointer -fno-strict-aliasing -fsigned-char -pipe -Wall -Wno-switch -Wno-deprecated-declarations -Wno-missing-braces -fdiagnostics-show-option")
 # -std=c99                        = Use the C99 language standard
 set(GCC_OR_CLANG_C_COMPILER_FLAGS        "-std=c99")
 # -fno-threadsafe-statics         = Don't generate thread-safe statics
@@ -60,7 +59,6 @@ endif()
 
 # /MP                                   = Multiprocess compilation
 # /Gy                                   = Enable function-level linking
-# /Zi                                   = Enable program database
 # /fp:fast                              = Calculate with less precise floating point values
 # /EHsc                                 = assume extern C stuff never throws exceptions
 # /W2                                   = Warning level 2
@@ -70,7 +68,7 @@ endif()
 # /wd"4267"                             = Ignore "conversion from 'size_t' to 'int', possible loss of data" warning
 # /wd"4305"                             = Ignore "truncation from 'double' to 'float'" warning
 # /wd"4996"                             = Ignore "Function call with parameters that may be unsafe" warning
-set(MSVC_COMPILER_FLAGS          "-MP -Gy -Zi -fp:fast -EHsc -W2 -wd\"4091\"  -wd\"4244\" -wd\"4251\" -wd\"4267\" -wd\"4305\" -wd\"4996\"")
+set(MSVC_COMPILER_FLAGS          "-MP -Gy -fp:fast -EHsc -W2 -wd\"4091\"  -wd\"4244\" -wd\"4251\" -wd\"4267\" -wd\"4305\" -wd\"4996\"")
 # /MTd                                  = Multithreaded debug runtime
 # /Od                                   = Disable optimizations
 # /RTC1                                 = Enable basic run-time checks
@@ -82,7 +80,7 @@ set(MSVC_COMPILER_FLAGS_DEBUG    "-MTd -RTC1 -Od -D_DEBUG")
 # /GF                                   = Enable string pooling
 # /D NDEBUG /D _NDEBUG                  = Not a debug build, skip code passages meant for debug.
 # /GL                                   = Whole Program Optimization: further optimize the program in linker stage (but calling the compiler).
-set(MSVC_COMPILER_FLAGS_RELEASE  "-MT -O2 -Ob2 -GF -DNDEBUG -D_NDEBUG -GL")
+set(MSVC_COMPILER_FLAGS_RELEASE  "-MT -O2 -Ob2 -GF -DNDEBUG -D_NDEBUG")
 # /DEBUG                                = Generate debug information (even for release builds for our stackwalker)
 # /MANIFEST:NO                          = No default manifest
 # /SAFESEH:NO                           = Do Not Create a table of safe exception handlers (binary incompatible)

@@ -21,5 +21,6 @@ We need in the platform submodule:
 
 cmake for your target into build folders
 (if you need: adapt the CEF_VERSION entry before)
+(if you need: adapt USE_SANDBOX before, but that should be consistent to the VAR in inexor!)
 build
 You find the libcef_dll_wrapper.lib somewhere nested in your build-folder
