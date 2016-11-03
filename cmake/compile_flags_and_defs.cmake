@@ -81,10 +81,11 @@ set(MSVC_COMPILER_FLAGS_DEBUG    "-MTd -RTC1 -Od -D_DEBUG")
 # /D NDEBUG /D _NDEBUG                  = Not a debug build, skip code passages meant for debug.
 # /GL                                   = Whole Program Optimization: further optimize the program in linker stage (but calling the compiler).
 set(MSVC_COMPILER_FLAGS_RELEASE  "-MT -O2 -Ob2 -GF -DNDEBUG -D_NDEBUG")
-# /DEBUG                                = Generate debug information (even for release builds for our stackwalker)
 # /MANIFEST:NO                          = No default manifest
 # /SAFESEH:NO                           = Do Not Create a table of safe exception handlers (binary incompatible)
-set(MSVC_LINKER_FLAGS            "-MANIFEST:NO -SAFESEH:NO -DEBUG ")
+set(MSVC_LINKER_FLAGS            "-MANIFEST:NO -SAFESEH:NO")
+# /DEBUG                                = Generate debug information
+set(MSVC_LINKER_FLAGS_DEBUG            "-DEBUG ")
 # /OPT:REF                              = Eliminate Unreferenced Data (to revert changes to the binary caused by /DEBUG)
 # /OPT:ICF                              = Remove Redundant COMDATs (to revert changes to the binary caused by /DEBUG)
 # /INCREMENTAL:NO                       = Linking incremental (faster) does not work anymore with the previous two optimizations
