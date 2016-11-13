@@ -39,10 +39,7 @@ endif()
 
 # Error if paths aren't set well
 get_filename_component(MAINDIR "${CMAKE_SOURCE_DIR}" REALPATH)  # Main inexor folder
-get_filename_component(BINDIR "${CMAKE_BINARY_DIR}" REALPATH)   # Where it generates the projects into
-if(${MAINDIR} STREQUAL ${BINDIR})
-    message(FATAL_ERROR "Keep your directories clean, don't generate the project-files in the main directory! ${MAINDIR} ${BINDIR}")
-endif()
+
 
 if(X64)
   set(PROJECT_ARCH "64")
