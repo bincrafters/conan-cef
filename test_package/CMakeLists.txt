@@ -66,8 +66,10 @@ endif()
 
 if(OS_LINUX)
   # Executable target.
+  find_package(X11 REQUIRED)
+  include_directories(${X11_INCLUDE_DIR})
   add_executable(${CEF_TARGET} ${CEFSIMPLE_SRCS})
-  target_link_libraries(${CEF_TARGET} ${CONAN_LIBS})
+  target_link_libraries(${CEF_TARGET} ${CONAN_LIBS} ${X11_LIBRARIES})
 
   # Set rpath so that libraries can be placed next to the executable.
   set_target_properties(${CEF_TARGET} PROPERTIES INSTALL_RPATH "$ORIGIN")
