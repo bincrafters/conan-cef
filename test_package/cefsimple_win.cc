@@ -68,9 +68,11 @@ int APIENTRY WinMain(HINSTANCE hInstance,
   // Initialize CEF.
   CefInitialize(main_args, settings, app.get(), sandbox_info);
 
+#ifndef NO_BROWSER_WORKING_TEST
   // Run the CEF message loop. This will block until CefQuitMessageLoop() is
   // called.
   CefRunMessageLoop();
+#endif
 
   // Shut down CEF.
   CefShutdown();

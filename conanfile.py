@@ -9,7 +9,10 @@ class CEFConan(ConanFile):
     url = "https://github.com/inexor-game/conan-CEF.git"
     license = "BSD-3Clause"
     settings = "os", "compiler", "build_type", "arch"
-    options = {"use_sandbox": [True, False], "debug_info_flag_vs": ["-Zi", "-Z7"]}
+    options = {
+        "use_sandbox": [True, False],
+        "debug_info_flag_vs": ["-Zi", "-Z7"]
+    }
     default_options = '''use_sandbox=False
     debug_info_flag_vs=-Z7'''
     generators = "cmake"

@@ -127,7 +127,8 @@ int main(int argc, char* argv[]) {
 
   // Initialize CEF for the browser process.
   CefInitialize(main_args, settings, app.get(), NULL);
-  
+
+#ifndef NO_BROWSER_WORKING_TEST
   // Create the application delegate.
   NSObject* delegate = [[SimpleAppDelegate alloc] init];
   [delegate performSelectorOnMainThread:@selector(createApplication:)
@@ -137,6 +138,7 @@ int main(int argc, char* argv[]) {
   // Run the CEF message loop. This will block until CefQuitMessageLoop() is
   // called.
   CefRunMessageLoop();
+#endif
 
   // Shut down CEF.
   CefShutdown();

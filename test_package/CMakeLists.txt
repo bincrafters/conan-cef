@@ -10,6 +10,12 @@ project(myproject)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+option(NO_BROWSER_WORKING_TEST "If enabled the application will not try to actually display something" ON)
+
+if(NO_BROWSER_WORKING_TEST)
+add_definitions(-DNO_BROWSER_WORKING_TEST)
+endif()
+
 include(cmake/cef_macros.cmake) # Same as shipped with cef but modified so we can include them directly (removed 2 lines)
 include(cmake/cef_variables.cmake)
 include_directories(${CONAN_INCLUDE_DIRS})
@@ -66,10 +72,15 @@ endif()
 
 if(OS_LINUX)
   # Executable target.
+  if(NOT NO_BROWSER_WORKING_TEST)
   find_package(X11 REQUIRED)
   include_directories(${X11_INCLUDE_DIR})
+  endif
   add_executable(${CEF_TARGET} ${CEFSIMPLE_SRCS})
-  target_link_libraries(${CEF_TARGET} ${CONAN_LIBS} ${X11_LIBRARIES})
+  target_link_libraries(${CEF_TARGET} ${CONAN_LIBS})
+  if(NOT NO_BROWSER_WORKING_TEST)
+    target_link_libraries(${CEF_TARGET} ${X11_LIBRARIES})
+  endif()
 
   # Set rpath so that libraries can be placed next to the executable.
   set_target_properties(${CEF_TARGET} PROPERTIES INSTALL_RPATH "$ORIGIN")

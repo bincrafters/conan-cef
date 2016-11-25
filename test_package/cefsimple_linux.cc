@@ -3,10 +3,10 @@
 // can be found in the LICENSE file.
 
 #include "simple_app.h"
-
-#include <X11/Xlib.h>
-
 #include "include/base/cef_logging.h"
+
+#ifndef NO_BROWSER_WORKING_TEST
+#include <X11/Xlib.h>
 
 namespace {
 
@@ -26,6 +26,7 @@ int XIOErrorHandlerImpl(Display *display) {
 }
 
 }  // namespace
+#endif // NO_BROWSER_WORKING_TEST
 
 
 // Entry point function for all processes.
@@ -42,10 +43,12 @@ int main(int argc, char* argv[]) {
     return exit_code;
   }
 
+#ifndef NO_BROWSER_WORKING_TEST
   // Install xlib error handlers so that the application won't be terminated
   // on non-fatal errors.
   XSetErrorHandler(XErrorHandlerImpl);
   XSetIOErrorHandler(XIOErrorHandlerImpl);
+#endif
 
   // Specify CEF global settings here.
   CefSettings settings;
@@ -58,10 +61,11 @@ int main(int argc, char* argv[]) {
   // Initialize CEF for the browser process.
   CefInitialize(main_args, settings, app.get(), NULL);
 
+#ifndef NO_BROWSER_WORKING_TEST
   // Run the CEF message loop. This will block until CefQuitMessageLoop() is
   // called.
   CefRunMessageLoop();
-
+#endif
   // Shut down CEF.
   CefShutdown();
 
