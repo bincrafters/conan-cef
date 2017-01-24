@@ -5,7 +5,7 @@ import shutil
 
 class CEFConan(ConanFile):
     name = "CEF"
-    version = "3.2743.1445.gdad7c0a"
+    version = "3.2704.1424.gc3f0a5b"
     url = "https://github.com/inexor-game/conan-CEF.git"
     license = "BSD-3Clause"
     settings = "os", "compiler", "build_type", "arch"
