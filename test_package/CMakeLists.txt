@@ -75,7 +75,7 @@ if(OS_LINUX)
   if(NOT NO_BROWSER_WORKING_TEST)
   find_package(X11 REQUIRED)
   include_directories(${X11_INCLUDE_DIR})
-  endif
+  endif()
   add_executable(${CEF_TARGET} ${CEFSIMPLE_SRCS})
   target_link_libraries(${CEF_TARGET} ${CONAN_LIBS})
   if(NOT NO_BROWSER_WORKING_TEST)
