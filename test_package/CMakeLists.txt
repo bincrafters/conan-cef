@@ -14,6 +14,9 @@ option(NO_BROWSER_WORKING_TEST "If enabled the application will not try to actua
 
 if(NO_BROWSER_WORKING_TEST)
 add_definitions(-DNO_BROWSER_WORKING_TEST)
+message(STATUS "Browser working test disabled.")
+else()
+message(STATUS "Browser working test enabled.")
 endif()
 
 include(cmake/cef_macros.cmake) # Same as shipped with cef but modified so we can include them directly (removed 2 lines)

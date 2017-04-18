@@ -12,7 +12,7 @@ class ProtobufTestConan(ConanFile):
 
     def build(self):
         cmake = CMake(self.settings)
-        self.run('cmake %s %s -DNO_BROWSER_WORKING_TEST=ON' % (self.conanfile_directory, cmake.command_line))
+        self.run('cmake %s  -DNO_BROWSER_WORKING_TEST=1 %s' % (self.conanfile_directory, cmake.command_line))
         self.run("cmake --build . %s" % cmake.build_config)
     #    if self.settings.os == "Macos":
     #        self.run("cd bin; for LINK_DESTINATION in $(otool -L client | grep libproto | cut -f 1 -d' '); do install_name_tool -change \"$LINK_DESTINATION\" \"@executable_path/$(basename $LINK_DESTINATION)\" client; done")
