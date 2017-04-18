@@ -4,8 +4,11 @@
 
 #include "simple_handler.h"
 
+#ifndef NO_BROWSER_WORKING_TEST
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
+#endif // NO_BROWSER_WORKING_TEST
+
 #include <string>
 
 #include "include/base/cef_logging.h"
@@ -13,6 +16,8 @@
 
 void SimpleHandler::PlatformTitleChange(CefRefPtr<CefBrowser> browser,
                                         const CefString& title) {
+
+#ifndef NO_BROWSER_WORKING_TEST
   std::string titleStr(title);
 
   // Retrieve the X11 display shared with Chromium.
@@ -49,5 +54,7 @@ void SimpleHandler::PlatformTitleChange(CefRefPtr<CefBrowser> browser,
   // is Compound Text. This shouldn't matter 90% of the time since this is the
   // fallback to the UTF8 property above.
   XStoreName(display, browser->GetHost()->GetWindowHandle(), titleStr.c_str());
+
+#endif // NO_BROWSER_WORKING_TEST
 }
 
