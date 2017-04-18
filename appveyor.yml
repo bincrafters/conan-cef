@@ -5,8 +5,8 @@ environment:
     PYTHON_ARCH: "32"
 
     CONAN_UPLOAD: 1
-    CONAN_REFERENCE: "CEF/3.2743.1445.gdad7c0a"
-    CONAN_USERNAME: "a_teammate"
+    CONAN_REFERENCE: "CEF/3.2704.1424.gc3f0a5b"
+    CONAN_USERNAME: "inexorgame"
     CONAN_CHANNEL: "stable"
     CONAN_TOTAL_PAGES: 16
 

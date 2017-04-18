@@ -1,9 +1,9 @@
 from conans import ConanFile, CMake
 import os
 
-channel = os.getenv("CONAN_CHANNEL", "testing")
-username = os.getenv("CONAN_USERNAME", "a_teammate")
-reference = os.getenv("CONAN_REFERENCE", "CEF/3.2743.1445.gdad7c0a")
+channel = os.getenv("CONAN_CHANNEL", "stable")
+username = os.getenv("CONAN_USERNAME", "inexorgame")
+reference = os.getenv("CONAN_REFERENCE", "CEF/3.2704.1424.gc3f0a5b")
 
 class ProtobufTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
