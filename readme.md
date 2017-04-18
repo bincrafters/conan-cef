@@ -1,27 +1,4 @@
 
-# Libcef_dll_wrapper prebuilt project
+This is a package for the Chromium Embedded Framework for the conan.io C++ package manager.
 
-For inexor we provide CEF and all its stuff in prebuilt form. So people don't spend compile time building another project.  
-This project is there to help you prebuilt the libcef_dll_wrapper target.
-
-
-Read `cef/tools/distrib/<your_OS>/README.redistrib.txt` on https://bitbucket.org/chromiumembedded/cef/
-
-
-We need in the platform submodule:
-
-* libcef_dll_wrapper.libs
-  * renamed to cef_dll_wrapper_release.lib and cef_dll_wrapper_debug.lib on windows
-    * we need 2 for windows for each arch
-  * simply libcef_dll_wrapper.a on linux
-* everything for cef see the README_redistrib.txt
-  * note: the headers are not the same for different platforms! merge stuff (if thats working)
-
-# Step by Step
-
-cmake for your target into build folders  
-(if you need: adapt the CEF_VERSION entry before)  
-(if you need: adapt USE_SANDBOX before, but that should be consistent to the VAR in inexor and you need to package it together as well)  
-(on windows: You'll need to disable the option /Zi and "whole-program optimisation" manually otherwise the libs get to big for github)  
-build  
-You find the libcef_dll_wrapper.lib somewhere nested in your build-folder, rename them and place them accordingly into your platform folders.
+The Chromium Embedded Framework (CEF) is an open source framework for embedding a web browser engine based on the Chromium core.
