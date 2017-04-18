@@ -32,9 +32,9 @@ class CEFConan(ConanFile):
             platform += "64"
         return "cef_binary_%s_%s" % (self.version, platform)
 
-    def config(self):
-        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio" and self.settings.compiler.version != "14":
-            self.options.remove("use_sandbox") # it requires to be built with that exact version for sandbox support
+   # def config(self):
+    #    if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio" and self.settings.compiler.version != "14":
+      #      self.options.remove("use_sandbox") # it requires to be built with that exact version for sandbox support
 
     def source(self):
         cef_download_filename ="{}.tar.bz2".format(self.get_cef_distribution_name())
