@@ -11,7 +11,7 @@ class CEFConan(ConanFile):
     description = "The Chromium Embedded Framework (CEF) is an open source framework for embedding a web browser engine which is based on the Chromium core"
     settings = "os", "compiler", "build_type", "arch"
     options = {
-        "use_sandbox": ["True", "False"],
+        "use_sandbox": [True, False],
         "debug_info_flag_vs": ["-Zi", "-Z7"]
     }
     default_options = '''use_sandbox=False
