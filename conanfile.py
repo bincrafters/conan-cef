@@ -62,7 +62,6 @@ class CEFConan(ConanFile):
             endif()""")
 
         tools.replace_in_file(cmake_vars_file, 'set(CEF_DEBUG_INFO_FLAG "/Zi"', 'set(CEF_DEBUG_INFO_FLAG "{}"'.format(self.options.debug_info_flag_vs))
-        tools.replace_in_file(cmake_vars_file, 'set(CEF_DEBUG_INFO_FLAG "/Zi"', 'set(CEF_DEBUG_INFO_FLAG "{}"'.format(self.options.debug_info_flag_vs))
 
 
     def build(self):
@@ -70,7 +69,7 @@ class CEFConan(ConanFile):
         args += ["-DUSE_SANDBOX={}".format("ON" if self.options.use_sandbox else "OFF")]
 
         cmake = CMake(self.settings)
-        self.run('cmake {} {} {}'.format(self.conanfile_directory, cmake.command_line, " ".join(args)))
+        self.run('cmake "{}" {} {}'.format(self.conanfile_directory, cmake.command_line, " ".join(args)))
         self.run("cmake --build . {}".format(cmake.build_config))
 
     def package(self):
