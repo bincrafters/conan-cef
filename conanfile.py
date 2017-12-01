@@ -1,12 +1,10 @@
-from conans import ConanFile, CMake, tools, ConfigureEnvironment
+from conans import ConanFile, CMake, tools
 import os
-import shutil
-
 
 class CEFConan(ConanFile):
     name = "CEF"
     version = "3.2704.1424.gc3f0a5b"
-    url = "https://github.com/inexor-game/conan-CEF.git"
+    url = "https://github.com/inexorgame/conan-CEF.git"
     license = "BSD-3Clause"
     description = "The Chromium Embedded Framework (CEF) is an open source framework for embedding a web browser engine which is based on the Chromium core"
     settings = "os", "compiler", "build_type", "arch"
@@ -33,9 +31,9 @@ class CEFConan(ConanFile):
             platform += "64"
         return "cef_binary_%s_%s" % (self.version, platform)
 
-   # def config(self):
-    #    if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio" and self.settings.compiler.version != "14":
-      #      self.options.remove("use_sandbox") # it requires to be built with that exact version for sandbox support
+    # def config(self):
+        # if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio" and self.settings.compiler.version != "14":
+            # self.options.remove("use_sandbox") # it requires to be built with that exact version for sandbox support
 
     def source(self):
         cef_download_filename ="{}.tar.bz2".format(self.get_cef_distribution_name())
@@ -68,7 +66,7 @@ class CEFConan(ConanFile):
         args = ["-DCEF_ROOT={}".format(self.get_cef_distribution_name())]
         args += ["-DUSE_SANDBOX={}".format("ON" if self.options.use_sandbox else "OFF")]
 
-        cmake = CMake(self.settings)
+        cmake = CMake(self)
         self.run('cmake "{}" {} {}'.format(self.conanfile_directory, cmake.command_line, " ".join(args)))
         self.run("cmake --build . {}".format(cmake.build_config))
 
