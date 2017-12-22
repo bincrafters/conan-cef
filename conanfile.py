@@ -4,7 +4,7 @@ import os
 
 class CEFConan(ConanFile):
     name = "CEF"
-    version = "3.2704.1424.gc3f0a5b"
+    version = "3.3239.1709.g093cae4"
     url = "https://github.com/inexorgame/conan-CEF.git"
     license = "BSD-3Clause"
     description = "The Chromium Embedded Framework (CEF) is an open source framework for embedding a web browser engine which is based on the Chromium core"
@@ -46,19 +46,6 @@ class CEFConan(ConanFile):
         if self.settings.compiler == "Visual Studio" and not (self.settings.compiler.runtime == "MT" or self.settings.compiler.runtime == "MTd"):
             tools.replace_in_file(cmake_vars_file, "/MT           # Multithreaded release runtime", "/MD           # Multithreaded release runtime")
             tools.replace_in_file(cmake_vars_file, "/MDd          # Multithreaded debug runtime", "/MDd          # Multithreaded debug runtime")
-
-        #
-        # Clang Patch, for Linux & MacOS not necessary with CEF >= 2987
-        #
-        if self.settings.compiler == "clang":
-            tools.replace_in_file(cmake_vars_file, 'include(CheckCXXCompilerFlag)', """include(CheckCXXCompilerFlag)
-
-              CHECK_CXX_COMPILER_FLAG(-Wno-undefined-var-template COMPILER_SUPPORTS_NO_UNDEFINED_VAR_TEMPLATE)
-              if(COMPILER_SUPPORTS_NO_UNDEFINED_VAR_TEMPLATE)
-                list(APPEND CEF_CXX_COMPILER_FLAGS
-                  -Wno-undefined-var-template   # Don't warn about potentially uninstantiated static members
-                  )
-            endif()""")
 
         tools.replace_in_file(cmake_vars_file, 'set(CEF_DEBUG_INFO_FLAG "/Zi"', 'set(CEF_DEBUG_INFO_FLAG "{}"'.format(self.options.debug_info_flag_vs))
 
