@@ -1,6 +1,7 @@
 from conans import ConanFile, CMake, tools
 import os
 
+
 class CEFConan(ConanFile):
     name = "CEF"
     version = "3.2704.1424.gc3f0a5b"
@@ -37,7 +38,7 @@ class CEFConan(ConanFile):
 
     def source(self):
         cef_download_filename ="{}.tar.bz2".format(self.get_cef_distribution_name())
-        self.output.info("Downloading CEF prebuilts from opensource.spotify.com")
+        self.output.info("Downloading CEF prebuilts from opensource.spotify.com/cefbuilds/index.html")
         tools.download("http://opensource.spotify.com/cefbuilds/{}".format(cef_download_filename), cef_download_filename)
         tools.unzip(cef_download_filename)
         os.unlink(cef_download_filename)
