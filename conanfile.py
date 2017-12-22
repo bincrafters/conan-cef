@@ -47,6 +47,19 @@ class CEFConan(ConanFile):
             tools.replace_in_file(cmake_vars_file, "/MT           # Multithreaded release runtime", "/MD           # Multithreaded release runtime")
             tools.replace_in_file(cmake_vars_file, "/MDd          # Multithreaded debug runtime", "/MDd          # Multithreaded debug runtime")
 
+        #
+        # Clang Patch, for Linux & MacOS (should be theoretically not necessary with CEF >= 2987)
+        #
+        if self.settings.compiler == "clang":
+            tools.replace_in_file(cmake_vars_file, 'include(CheckCXXCompilerFlag)', """include(CheckCXXCompilerFlag)
+
+              CHECK_CXX_COMPILER_FLAG(-Wno-undefined-var-template COMPILER_SUPPORTS_NO_UNDEFINED_VAR_TEMPLATE)
+              if(COMPILER_SUPPORTS_NO_UNDEFINED_VAR_TEMPLATE)
+                list(APPEND CEF_CXX_COMPILER_FLAGS
+                  -Wno-undefined-var-template   # Don't warn about potentially uninstantiated static members
+                  )
+            endif()""")
+
         tools.replace_in_file(cmake_vars_file, 'set(CEF_DEBUG_INFO_FLAG "/Zi"', 'set(CEF_DEBUG_INFO_FLAG "{}"'.format(self.options.debug_info_flag_vs))
 
 
