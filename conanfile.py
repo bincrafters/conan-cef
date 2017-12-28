@@ -68,7 +68,7 @@ class CEFConan(ConanFile):
         args += ["-DUSE_SANDBOX={}".format("ON" if self.options.use_sandbox else "OFF")]
 
         cmake = CMake(self)
-        self.run('cmake "{}" {} {}'.format(self.conanfile_directory, cmake.command_line, " ".join(args)))
+        self.run('cmake "{}" {} {}'.format(self.source_folder, cmake.command_line, " ".join(args)))
         self.run("cmake --build . {}".format(cmake.build_config))
 
     def package(self):
