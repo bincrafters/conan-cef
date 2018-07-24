@@ -3,7 +3,7 @@ import os
 
 channel = os.getenv("CONAN_CHANNEL", "stable")
 username = os.getenv("CONAN_USERNAME", "inexorgame")
-reference = os.getenv("CONAN_REFERENCE", "CEF/3.2704.1424.gc3f0a5b")
+reference = os.getenv("CONAN_REFERENCE", "CEF/3.3239.1709.g093cae4")
 
 class ProtobufTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
