@@ -62,6 +62,32 @@ class CEFConan(ConanFile):
 
         tools.replace_in_file(cmake_vars_file, 'set(CEF_DEBUG_INFO_FLAG "/Zi"', 'set(CEF_DEBUG_INFO_FLAG "{}"'.format(self.options.debug_info_flag_vs))
 
+    def system_requirements(self):
+        if self.settings.os == "Linux" and tools.os_info.is_linux:
+            if tools.os_info.with_apt:
+                installer = tools.SystemPackageTool()
+                if self.settings.arch == "x86":
+                    arch_suffix = ':i386'
+                elif self.settings.arch == "x86_64":
+                    arch_suffix = ':amd64'
+
+                packages = ['libpangocairo-1.0-0{}'.format(arch_suffix)]
+                packages.append('libxcomposite1{}'.format(arch_suffix))
+                packages.append('libxrandr2{}'.format(arch_suffix))
+                packages.append('libxcursor1{}'.format(arch_suffix))
+                packages.append('libatk1.0-0{}'.format(arch_suffix))
+                packages.append('libcups2{}'.format(arch_suffix))
+                packages.append('libnss3{}'.format(arch_suffix))
+                packages.append('libgconf-2-4{}'.format(arch_suffix))
+                packages.append('libxss1{}'.format(arch_suffix))
+                packages.append('libasound2{}'.format(arch_suffix))
+                packages.append('libxtst6{}'.format(arch_suffix))
+                packages.append('libgtk2.0-dev{}'.format(arch_suffix))
+                packages.append('libgdk-pixbuf2.0-dev{}'.format(arch_suffix))
+                packages.append('freeglut3-dev{}'.format(arch_suffix))
+
+                for package in packages:
+                    installer.install(package)
 
     def build(self):
         args = ["-DCEF_ROOT={}".format(self.get_cef_distribution_name())]
