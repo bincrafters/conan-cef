@@ -10,8 +10,12 @@ message(STATUS "CMAKE_GENERATOR = ${CMAKE_GENERATOR}")
 # Project Name and start working in project scope (some things just work until now, some just work after this command)
 project(libcef_dll_wrapper)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+include(conanbuildinfo.cmake)
 conan_basic_setup()
+
+# See https://bitbucket.org/chromiumembedded/cef/issues/1921/cmake-error-building-minimal-binary#comment-28471790
+macro(SET_LIBRARY_TARGET_PROPERTIES target)
+endmacro()
 
 # Configure use of the sandbox.
 option(USE_SANDBOX OFF)
@@ -28,7 +32,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CEF_ROOT}/cmake")
 message(STATUS "MOUDLE PATH: ${CMAKE_MODULE_PATH}")
 
 # Load the CEF configuration (executes FindCEF.cmake).
-find_package(CEF REQUIRED)
+# find_package(CEF REQUIRED)
 
 # Path to the include directory.
 set(CEF_INCLUDE_PATH "${CEF_ROOT}")

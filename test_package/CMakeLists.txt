@@ -5,7 +5,7 @@
 #
 # Source files.
 #
-project(myproject)
+project(test_package)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
