@@ -4,7 +4,7 @@ import os
 
 class CEFConan(ConanFile):
     name = "cef"
-    version = "3.3396.1785.ga27bbfa"
+    version = "3.3578.1860.g36610bd"
     description = "The Chromium Embedded Framework (CEF) is an open source framework for embedding a web browser engine which is based on the Chromium core"
     url = "https://github.com/inexorgame/conan-cef"
     homepage = "https://bitbucket.org/chromiumembedded/cef"
