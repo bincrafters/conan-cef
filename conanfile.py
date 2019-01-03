@@ -14,12 +14,12 @@ class CEFConan(ConanFile):
         "use_sandbox": [True, False],
         "debug_info_flag_vs": ["-Zi", "-Z7"]
     }
-    default_options = "use_sandbox=False", "debug_info_flag_vs=-Z7"
+    default_options = {'use_sandbox': False, 'debug_info_flag_vs': '-Z7'}
     exports_sources = ["CMakeLists.txt"]
     generators = "cmake"
 
-    source_subfolder = "source_subfolder"
-    build_subfolder = "build_subfolder"
+    _source_subfolder = "source_subfolder"
+    _build_subfolder = "build_subfolder"
 
     def get_cef_distribution_name(self):
         platform = ""
@@ -45,9 +45,9 @@ class CEFConan(ConanFile):
         cef_download_filename ="{}.tar.bz2".format(self.get_cef_distribution_name())
         archive_url = "http://opensource.spotify.com/cefbuilds/{}".format(cef_download_filename)
         tools.get(archive_url)
-        os.rename(self.get_cef_distribution_name(), self.source_subfolder)
+        os.rename(self.get_cef_distribution_name(), self._source_subfolder)
 
-        cmake_vars_file = "{}/cmake/cef_variables.cmake".format(self.source_subfolder)
+        cmake_vars_file = "{}/cmake/cef_variables.cmake".format(self._source_subfolder)
         if self.settings.compiler == "Visual Studio" and not (self.settings.compiler.runtime == "MT" or self.settings.compiler.runtime == "MTd"):
             tools.replace_in_file(cmake_vars_file, "/MT           # Multithreaded release runtime", "/MD           # Multithreaded release runtime")
             tools.replace_in_file(cmake_vars_file, "/MDd          # Multithreaded debug runtime", "/MDd          # Multithreaded debug runtime")
@@ -96,10 +96,10 @@ class CEFConan(ConanFile):
 
     def _configure_cmake(self):
         cmake = CMake(self)
-        cmake.definitions["CEF_ROOT"] = self.source_subfolder
+        cmake.definitions["CEF_ROOT"] = self._source_subfolder
         cmake.definitions["USE_SANDBOX"] = "ON" if self.options.use_sandbox else "OFF"
 
-        cmake.configure(build_folder=self.build_subfolder)
+        cmake.configure(build_folder=self._build_subfolder)
         return cmake
 
     def build(self):
@@ -111,11 +111,11 @@ class CEFConan(ConanFile):
         cmake.install()
 
         # Copy headers
-        self.copy('*', dst='include/include', src='{}/include'.format(self.source_subfolder))
+        self.copy('*', dst='include/include', src='{}/include'.format(self._source_subfolder))
 
         # Copy all stuff from the Debug/Release folders in the downloaded cef bundle:
-        dis_folder = "{}/{}".format(self.source_subfolder, self.settings.build_type)
-        res_folder = "{}/Resources".format(self.source_subfolder)
+        dis_folder = "{}/{}".format(self._source_subfolder, self.settings.build_type)
+        res_folder = "{}/Resources".format(self._source_subfolder)
         # resource files: taken from cmake/cef_variables (on macosx we would need to convert the COPY_MACOSX_RESOURCES() function)
         cef_resources = ["cef.pak", "cef_100_percent.pak", "cef_200_percent.pak", "cef_extensions.pak", "devtools_resources.pak", "icudtl.dat", "locales*"]
         for res in cef_resources:

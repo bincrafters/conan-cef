@@ -1,4 +1,8 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.12)
+project(cmake_wrapper)
+
+include(conanbuildinfo.cmake)
+conan_basic_setup()
 
 if(NOT DEFINED CEF_ROOT)
   message(FATAL_ERROR "Setting CEF_ROOT is required")
@@ -7,11 +11,6 @@ endif()
 message(STATUS "CMAKE_VERSION = ${CMAKE_VERSION}")
 message(STATUS "CMAKE_GENERATOR = ${CMAKE_GENERATOR}")
 
-# Project Name and start working in project scope (some things just work until now, some just work after this command)
-project(libcef_dll_wrapper)
-
-include(conanbuildinfo.cmake)
-conan_basic_setup()
 
 # See https://bitbucket.org/chromiumembedded/cef/issues/1921/cmake-error-building-minimal-binary#comment-28471790
 macro(SET_LIBRARY_TARGET_PROPERTIES target)
