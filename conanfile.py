@@ -3,7 +3,7 @@ import os
 
 
 class CEFConan(ConanFile):
-    name = "CEF"
+    name = "cef"
     version = "3.3239.1709.g093cae4"
     url = "https://github.com/inexorgame/conan-CEF.git"
     license = "BSD-3Clause"
