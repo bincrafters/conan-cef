@@ -67,11 +67,6 @@ class CEFConan(ConanFile):
 
         tools.replace_in_file(cmake_vars_file, 'set(CEF_DEBUG_INFO_FLAG "/Zi"', 'set(CEF_DEBUG_INFO_FLAG "{}"'.format(self.options.debug_info_flag_vs))
 
-    def _configure_cmake(self):
-        cmake = CMake(self)
-        cmake.definitions["CEF_ROOT"] = self.source_subfolder
-        cmake.definitions["USE_SANDBOX"] = "ON" if self.options.use_sandbox else "OFF"
-
     def system_requirements(self):
         if self.settings.os == "Linux" and tools.os_info.is_linux:
             if tools.os_info.with_apt:
@@ -98,6 +93,11 @@ class CEFConan(ConanFile):
 
                 for package in packages:
                     installer.install(package)
+
+    def _configure_cmake(self):
+        cmake = CMake(self)
+        cmake.definitions["CEF_ROOT"] = self.source_subfolder
+        cmake.definitions["USE_SANDBOX"] = "ON" if self.options.use_sandbox else "OFF"
 
         cmake.configure(build_folder=self.build_subfolder)
         return cmake
