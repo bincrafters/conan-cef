@@ -6,17 +6,24 @@ class CEFConan(ConanFile):
     name = "cef"
     version = "3.3578.1860.g36610bd"
     description = "The Chromium Embedded Framework (CEF) is an open source framework for embedding a web browser engine which is based on the Chromium core"
-    url = "https://github.com/inexorgame/conan-cef"
+    topics = ("conan", "cef", "chromium", "chromium-embedded-framework")
+    url = "https://github.com/bincrafters/conan-cef"
     homepage = "https://bitbucket.org/chromiumembedded/cef"
+    author = "Bincrafters <bincrafters@gmail.com>"
     license = "BSD-3Clause"
+    exports = ["LICENSE.md"]
+    exports_sources = ["CMakeLists.txt"]
+    generators = "cmake"
+
     settings = "os", "compiler", "build_type", "arch"
     options = {
         "use_sandbox": [True, False],
         "debug_info_flag_vs": ["-Zi", "-Z7"]
     }
-    default_options = {'use_sandbox': False, 'debug_info_flag_vs': '-Z7'}
-    exports_sources = ["CMakeLists.txt"]
-    generators = "cmake"
+    default_options = {
+        'use_sandbox': False,
+        'debug_info_flag_vs': '-Z7'
+    }
 
     _source_subfolder = "source_subfolder"
     _build_subfolder = "build_subfolder"
