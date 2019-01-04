@@ -5,18 +5,28 @@ import os
 class CEFConan(ConanFile):
     name = "cef"
     version = "3.3239.1709.g093cae4"
-    url = "https://github.com/inexorgame/conan-CEF.git"
-    license = "BSD-3Clause"
     description = "The Chromium Embedded Framework (CEF) is an open source framework for embedding a web browser engine which is based on the Chromium core"
+    topics = ("conan", "cef", "chromium", "chromium-embedded-framework")
+    url = "https://github.com/bincrafters/conan-cef"
+    homepage = "https://bitbucket.org/chromiumembedded/cef"
+    author = "Bincrafters <bincrafters@gmail.com>"
+    license = "BSD-3Clause"
+    exports = ["LICENSE.md"]
+    exports_sources = ["CMakeLists.txt"]
+    generators = "cmake"
+
     settings = "os", "compiler", "build_type", "arch"
     options = {
         "use_sandbox": [True, False],
         "debug_info_flag_vs": ["-Zi", "-Z7"]
     }
-    default_options = '''use_sandbox=False
-    debug_info_flag_vs=-Z7'''
-    generators = "cmake"
-    exports = "CMakeLists.txt"
+    default_options = {
+        'use_sandbox': False,
+        'debug_info_flag_vs': '-Z7'
+    }
+
+    _source_subfolder = "source_subfolder"
+    _build_subfolder = "build_subfolder"
 
     def get_cef_distribution_name(self):
         platform = ""
@@ -104,8 +114,17 @@ class CEFConan(ConanFile):
         # Copy all stuff from the Debug/Release folders in the downloaded cef bundle:
         dis_folder = "{}/{}".format(self.get_cef_distribution_name(), self.settings.build_type)
         res_folder = "{}/Resources".format(self.get_cef_distribution_name())
-        # resource files: taken from cmake/cef_variables (on macosx we would need to convert the COPY_MACOSX_RESOURCES() function)
-        cef_resources = ["cef.pak", "cef_100_percent.pak", "cef_200_percent.pak", "cef_extensions.pak", "devtools_resources.pak", "icudtl.dat", "locales*"]
+        # resource files: taken from cmake/cef_variables
+        # on macosx we would need to convert the COPY_MACOSX_RESOURCES() function
+        cef_resources = [
+            "cef.pak",
+            "cef_100_percent.pak",
+            "cef_200_percent.pak",
+            "cef_extensions.pak",
+            "devtools_resources.pak",
+            "icudtl.dat",
+            "locales*"
+        ]
         for res in cef_resources:
             self.copy(res, dst="bin", src=res_folder, keep_path=True)
 
@@ -125,7 +144,7 @@ class CEFConan(ConanFile):
             self.copy("snapshot_blob.bin", dst="bin", src=dis_folder, keep_path=False)
             if self.options.use_sandbox:
                 self.copy("cef_sandbox.lib", dst="lib", src=dis_folder, keep_path=False)
-            self.copy("*cef_dll_wrapper.lib", dst="lib", keep_path=False) # libcef_dll_wrapper is somewhere else
+            self.copy("*cef_dll_wrapper.lib", dst="lib", keep_path=False)  # libcef_dll_wrapper is somewhere else
 
     def package_info(self):
         if self.settings.compiler == "Visual Studio":
