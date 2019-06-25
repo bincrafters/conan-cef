@@ -4,6 +4,9 @@ project(cmake_wrapper)
 include(conanbuildinfo.cmake)
 conan_basic_setup()
 
+
+set(CMAKE_CXX_STANDARD 17)
+
 if(NOT DEFINED CEF_ROOT)
   message(FATAL_ERROR "Setting CEF_ROOT is required")
 endif()
