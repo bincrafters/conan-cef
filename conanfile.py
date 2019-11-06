@@ -9,7 +9,6 @@ class CEFConan(ConanFile):
     topics = ("conan", "cef", "chromium", "chromium-embedded-framework")
     url = "https://github.com/bincrafters/conan-cef"
     homepage = "https://bitbucket.org/chromiumembedded/cef"
-    author = "Bincrafters <bincrafters@gmail.com>"
     license = "BSD-3Clause"
     exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt"]
