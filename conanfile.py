@@ -6,7 +6,7 @@ class CEFConan(ConanFile):
     name = "cef"
     version = "3.3683.1920.g9f41a27"
     description = "The Chromium Embedded Framework (CEF) is an open source framework for embedding a web browser engine which is based on the Chromium core"
-    topics = ("conan", "cef", "chromium", "chromium-embedded-framework")
+    topics = ("cef", "chromium", "chromium-embedded-framework")
     url = "https://github.com/bincrafters/conan-cef"
     homepage = "https://bitbucket.org/chromiumembedded/cef"
     license = "BSD-3-Clause"
