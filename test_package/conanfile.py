@@ -19,6 +19,6 @@ class CefTestConan(ConanFile):
         #self.copy("*", "bin", "bin")
 
     def test(self):
-        if not tools.cross_building(self.settings):
+        if not tools.cross_building(self):
             bin_path = os.path.join("bin", "cefsimple")
             self.run(bin_path, run_environment=True)
